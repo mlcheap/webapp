@@ -25,9 +25,18 @@ export default function InitialPage() {
     console.log("start project", project.project_name);
   };
   return (
-    <Grid container spacing={4} style={{ padding: 12 }}>
+    <Grid container spacing={2} style={{ padding: 12 }}>
       {projects.map((project) => (
-        <Grid item xs={12} sm={6} lg={2} xl={1}>
+        <Grid
+          item
+          xs={12}
+          md={3}
+          direction="column"
+          lg={2}
+          xl={1}
+          alignItems="center"
+          justifyContent="center"
+        >
           <ProjectCard project={project} startProject={startProject} />
         </Grid>
       ))}
