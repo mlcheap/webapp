@@ -21,10 +21,10 @@ export default function TaskPage() {
       <Box align="center" justify="center" alignItems="center">
         <SearchBox />
       </Box>
-      <Grid container spacing={2} sx={{ padding: "48px" }}>
-        <Grid item xs={9}>
+      <Grid container spacing={2} sx={{ padding: "1vh" }}>
+        <Grid item md={9} xs={12}>
           <Box sx={{ padding: "10px" }}>
-            <Paper sx={{ height: "calc( 100vh - 240px) ", padding: "20px" }}>
+            <Paper sx={{ minHeight: "calc( 100vh - 240px) ", padding: "20px" }}>
               <Typography
                 variant="body1"
                 gutterBottom
@@ -36,7 +36,7 @@ export default function TaskPage() {
             </Paper>
           </Box>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={12}>
           <Labels
             predicted_labels={predicted_labels}
             setSelectItem={setSelectItem}

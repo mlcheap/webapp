@@ -46,7 +46,7 @@ const Info = ({ total_labeld, total_remains }) => {
 };
 export default function MediaCard({ project, startProject }) {
   return (
-    <Card sx={{ maxWidth: 245 }}>
+    <Card sx={{ maxWidth: 245, margin: "auto" }}>
       <CardMedia
         component="img"
         height="140"
