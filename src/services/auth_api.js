@@ -1,4 +1,4 @@
-import { server_address } from "./utils";
+import { server_address } from "./consts";
 
 export async function loginUser(credentials) {
   return fetch(server_address + "/auth/signin", {

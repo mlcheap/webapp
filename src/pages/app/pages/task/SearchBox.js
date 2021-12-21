@@ -7,10 +7,7 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
@@ -72,11 +69,11 @@ export default function SearchAppBar() {
               options={["salam", "chetori", "salam chetori"]}
               renderInput={(params) => (
                 <StyledInputBase
-                  {...params}
+                  ref={params.InputProps.ref}
                   placeholder="Search…"
                   inputProps={{
                     "aria-label": "search",
-                    ...params.InputProps,
+                    ...params.inputProps,
                     type: "search",
                   }}
                 />

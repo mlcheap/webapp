@@ -1,4 +1,4 @@
-import { server_address } from "./utils";
+import { server_address } from "./consts";
 
 export function initialApi(user) {
   const api_token = user.access_token;

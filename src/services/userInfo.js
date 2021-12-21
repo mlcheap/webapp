@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { singletonHook } from "react-singleton-hook";
 
-console.log("localstorage", localStorage.getItem("user"));
 const initUser = JSON.parse(localStorage.getItem("user"));
 let currentUser = initUser;
 let globalSetUser = () => {
