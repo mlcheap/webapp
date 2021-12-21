@@ -6,7 +6,7 @@ import { baseRoutes } from "./routes";
 
 function App() {
   const user = userInfo();
-  let isLogin = user && user.access_token;
+let isLogin = user && user.access_token;
   let routing = useRoutes(baseRoutes(isLogin, setUser));
   return (
     <div className="App">
