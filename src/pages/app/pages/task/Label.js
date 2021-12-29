@@ -8,7 +8,16 @@ import DoneIcon from "@mui/icons-material/Done";
 import Divider from "@mui/material/Divider";
 
 import { JobTooltip } from "./JobToolTip";
-const Labels = ({ predicted_labels, setSelectItem, selectItem }) => {
+const Labels = ({
+  predicted_labels,
+  setSelectItem,
+  selectItem,
+  clickMore,
+  clickSubmit,
+  checked,
+  setChecked,
+  onDescription,
+}) => {
   const handleChange = (index) => {
     setChecked((prevState) => ({
       ...prevState,
@@ -23,24 +32,32 @@ const Labels = ({ predicted_labels, setSelectItem, selectItem }) => {
     setSelectItem(index);
     handleChange(index);
   };
-  let [checked, setChecked] = useState({});
   // let [open, setOpen] = useState(false);
-
   const click_label = (index) => (e) => {
     // console.log("clicked", index);
 
     setSelectItem(index);
     handleChange(index);
   };
-
+  const getDescription = (preferClass) => {
+    if (preferClass && preferClass["metadata"]) {
+      return preferClass["metadata"]["description"];
+    } else {
+      return "";
+    }
+  };
   return (
     <Box>
       {predicted_labels.map((predicted_label, index) => (
-        <JobTooltip title={predicted_labels[selectItem]["text"]} key={index}>
+        <JobTooltip
+          title={getDescription(predicted_labels[index])}
+          key={index}
+          onOpen={onDescription(index)}
+        >
           {checked[index] ? (
             <Chip
               sx={{ margin: "5px" }}
-              label={predicted_label["label"]}
+              label={predicted_label["name"]}
               variant="outlined"
               onClick={click_label(index)}
               color="success"
@@ -49,7 +66,7 @@ const Labels = ({ predicted_labels, setSelectItem, selectItem }) => {
           ) : (
             <Chip
               sx={{ margin: "5px" }}
-              label={predicted_label["label"]}
+              label={predicted_label["name"]}
               variant="outlined"
               deleteIcon={<DoneIcon />}
               onDelete={handleDelete(index)}
@@ -66,12 +83,17 @@ const Labels = ({ predicted_labels, setSelectItem, selectItem }) => {
         }}
       >
         <Button
+          onClick={clickMore}
           variant="contained"
           sx={{ marginRight: "10px", marginLeft: "20px" }}
         >
           more
         </Button>
-        <Button variant="contained" sx={{ marginLeft: "10px" }}>
+        <Button
+          onClick={clickSubmit}
+          variant="contained"
+          sx={{ marginLeft: "10px" }}
+        >
           submit
         </Button>
       </Box>

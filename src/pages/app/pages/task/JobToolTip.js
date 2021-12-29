@@ -6,8 +6,8 @@ const JobTooltip = styled(({ className, ...props }) => (
   <Tooltip
     {...props}
     classes={{ popper: className }}
-    enterDelay={1000}
-    enterNextDelay={1000}
+    // enterDelay={1000}
+    // enterNextDelay={1000}
   />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {

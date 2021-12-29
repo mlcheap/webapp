@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-// import "./login.css";
 import { loginUser } from "../../../services/auth_api";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";

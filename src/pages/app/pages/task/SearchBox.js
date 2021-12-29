@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -44,15 +41,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
+      width: "20ch",
     },
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ options, addClass }) {
+  let [autocomplete, setAutocomplete] = useState(false);
+  const onInputChange = (event) => {
+    if (event.target.value.length > 2) {
+      setAutocomplete(true);
+    } else {
+      setAutocomplete(false);
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -66,7 +69,11 @@ export default function SearchAppBar() {
               freeSolo
               id="free-solo-2-demo"
               disableClearable
-              options={["salam", "chetori", "salam chetori"]}
+              open={autocomplete}
+              options={options}
+              onInputChange={onInputChange}
+              onChange={(e, value) => addClass(value)}
+              getOptionLabel={(option) => option.name}
               renderInput={(params) => (
                 <StyledInputBase
                   ref={params.InputProps.ref}
@@ -85,32 +92,3 @@ export default function SearchAppBar() {
     </Box>
   );
 }
-
-const SearchBox = () => {
-  return (
-    <Stack
-      spacing={2}
-      marginTop="20px"
-      sx={{ width: 450, display: "inline-flex" }}
-    >
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        options={[]}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            InputProps={{
-              ...params.InputProps,
-              type: "search",
-            }}
-          />
-        )}
-      />
-    </Stack>
-  );
-};
-
-// export default SearchBox;
