@@ -39,6 +39,7 @@ const TaskPage = () => {
       const newTask = newTasks[0];
       setTask(newTask);
       const ai_predicteds = newTask["items"][1]["meta-label"]["ai"];
+      console.log(ai_predicteds);
       setPreferedClasses(
         ai_predicteds.map((item) => findClassByIndex(item.index))
       );
@@ -68,6 +69,7 @@ const TaskPage = () => {
     );
   };
   const findClassByIndex = (index) => {
+    console.log("index", index);
     const obj = allClasses.find((c) => c._id == String(index));
     return obj;
   };
