@@ -1,7 +1,7 @@
 import { server_address } from "./consts";
 
 export async function loginUser(credentials) {
-  return fetch(server_address + "/auth/signin", {
+  return fetch("/api/v5/auth/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export async function loginUser(credentials) {
 }
 
 export async function signupUser(credentials) {
-  return fetch(server_address + "/auth/signup", {
+  return fetch("/api/v5/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
