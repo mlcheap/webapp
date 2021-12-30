@@ -39,9 +39,11 @@ const TaskPage = () => {
       const newTask = newTasks[0];
       setTask(newTask);
       const ai_predicteds = newTask["items"][1]["meta-label"]["ai"];
-      setPreferedClasses(
-        ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
-      );
+      if (allClasses) {
+        setPreferedClasses(
+          ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
+        );
+      }
     } else {
       navigate("/app/initial");
     }
