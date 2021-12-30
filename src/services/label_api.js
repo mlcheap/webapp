@@ -16,7 +16,7 @@ export function getAllClassesApi(user, project_id) {
   };
 
   return fetch(
-    server_address + "/classes?lang=en&project_id=61c4d33e947f0c5cae56ee24",
+    server_address + "/classes?lang=en&project_id=" + project_id,
     requestOptions
   )
     .catch((error) => console.log("error", error))
