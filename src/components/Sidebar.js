@@ -5,6 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Assessment from "@mui/icons-material/Assessment";
 import { userInfo, deleteUser } from "../services/userInfo";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +20,9 @@ export default function SelectedListItem() {
     } else {
       setSelectedIndex(index);
     }
+    if (index === 1) {
+      navigate("/app/reports", { replace: true });
+    }
   }
 
   return (
@@ -32,6 +36,15 @@ export default function SelectedListItem() {
             <LogoutIcon />
           </ListItemIcon>
           <ListItemText primary="logout" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedIndex === 0}
+          onClick={(event) => handleListItemClick(event, 1)}
+        >
+          <ListItemIcon>
+            <Assessment />
+          </ListItemIcon>
+          <ListItemText primary="reports" />
         </ListItemButton>
       </List>
     </Box>

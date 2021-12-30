@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/login/login";
 import SignUp from "./pages/auth/signup/signup";
 import TaskPage from "./pages/app/pages/task/task";
-
+import ReportsPage from "./pages/app/pages/reports/reports";
 import InitialPage from "./pages/app/pages/initial/initial";
 import AppPage from "./pages/app/AppPages";
 export const baseRoutes = (isLoggedIn, setUser) => [
@@ -53,5 +53,9 @@ export const appRoutes = () => [
   {
     path: "/new-task",
     element: <TaskPage />,
+  },
+  {
+    path: "/reports",
+    element: <ReportsPage />,
   },
 ];
