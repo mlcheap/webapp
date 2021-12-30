@@ -136,6 +136,23 @@ const TaskPage = () => {
       });
     }
   };
+  let onClickSkipped = (event) => {
+    if (task && project_id) {
+      submitApi(user, {
+        project_id: project_id,
+        task: {
+          task_id: task["task_id"],
+          labels: [],
+          label_time: 884,
+        },
+        buffer_ids: [],
+        skiped_ids: [task["task_id"]],
+      }).then((res) => {
+        setNewTask(res["data"]["tasks"]);
+        setChecked({});
+      });
+    }
+  };
   return (
     <Box>
       <Box align="center" justify="center" alignItems="center">
@@ -172,6 +189,7 @@ const TaskPage = () => {
             selectItem={selectItem}
             clickMore={onClickMore}
             clickSubmit={onClickSubmit}
+            clickSkipped={onClickSkipped}
             checked={checked}
             setChecked={setChecked}
             onDescription={onDescription}

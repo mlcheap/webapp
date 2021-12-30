@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import DoneIcon from "@mui/icons-material/Done";
 import Divider from "@mui/material/Divider";
+import { yellow } from "@mui/material/colors";
 
 import { JobTooltip } from "./JobToolTip";
 const Labels = ({
@@ -14,6 +15,7 @@ const Labels = ({
   selectItem,
   clickMore,
   clickSubmit,
+  clickSkipped,
   checked,
   setChecked,
   onDescription,
@@ -82,6 +84,13 @@ const Labels = ({
           width: "100%",
         }}
       >
+        <Button
+          onClick={clickSkipped}
+          sx={{ marginLeft: "10px", color: "#b2a429" }}
+        >
+          skip
+        </Button>
+
         <Button
           onClick={clickMore}
           variant="contained"
