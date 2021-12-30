@@ -51,6 +51,7 @@ const TaskPage = () => {
     if (!allClasses) {
       getAllClassesApi(user, project_id).then((data) => {
         allClasses = data["data"]["classes"];
+        console.log(allClasses);
         setAllClasses(allClasses);
         setOptions(allClasses);
       });
