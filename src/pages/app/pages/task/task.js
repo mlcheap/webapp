@@ -38,35 +38,28 @@ const TaskPage = () => {
     if (newTasks && newTasks.length > 0) {
       const newTask = newTasks[0];
       setTask(newTask);
-      const ai_predicteds = newTask["items"][1]["meta-label"]["ai"];
-      if (allClasses) {
-        setPreferedClasses(
-          ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
-        );
-      }
     } else {
       navigate("/app/initial");
     }
   };
   useEffect(() => {
+    let classes = null;
+    let new_task = [];
     setLoading(true);
     if (!allClasses) {
       getAllClassesApi(user, project_id).then((data) => {
-        allClasses = data["data"]["classes"];
-        setAllClasses(allClasses);
-        setOptions(allClasses);
-        if (task) {
-          const ai_predicteds = task["items"][1]["meta-label"]["ai"];
-          setPreferedClasses(
-            ai_predicteds.map((item) =>
-              findClassByIndex(allClasses, item.index)
-            )
-          );
+        classes = data["data"]["classes"];
+        setAllClasses(classes);
+        setOptions(classes);
+        if (new_task) {
+          update_tags(new_task[0], classes);
         }
       });
     }
     newTaskApi(user, project_id).then((res) => {
-      setNewTask(res["data"]["tasks"]);
+      new_task = res["data"]["tasks"];
+      setNewTask(new_task);
+      update_tags(new_task[0], classes);
     });
     setLoading(false);
   }, []);
@@ -76,15 +69,18 @@ const TaskPage = () => {
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
     );
   };
-  if (task && allClasses && !preferedClasses) {
-    const ai_predicteds = task["items"][1]["meta-label"]["ai"];
-    setPreferedClasses(
-      ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
-    );
-  }
+  const update_tags = (task, allClasses) => {
+    if (task && allClasses) {
+      const ai_predicteds = task["items"][1]["meta-label"]["ai"];
+      setPreferedClasses(
+        ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
+      );
+    }
+  };
+
   const findClassByIndex = (allClasses, index) => {
     // console.log("index", index);
-    const obj = allClasses.find((c) => c._id == String(index));
+    const obj = allClasses.find((c) => c._id === String(index));
     return obj;
   };
 
