@@ -39,7 +39,6 @@ const TaskPage = () => {
       const newTask = newTasks[0];
       setTask(newTask);
       const ai_predicteds = newTask["items"][1]["meta-label"]["ai"];
-      console.log(ai_predicteds);
       setPreferedClasses(
         ai_predicteds.map((item) => findClassByIndex(item.index))
       );
@@ -52,9 +51,14 @@ const TaskPage = () => {
     if (!allClasses) {
       getAllClassesApi(user, project_id).then((data) => {
         allClasses = data["data"]["classes"];
-        console.log(allClasses);
         setAllClasses(allClasses);
         setOptions(allClasses);
+        if (task) {
+          const ai_predicteds = task["items"][1]["meta-label"]["ai"];
+          setPreferedClasses(
+            ai_predicteds.map((item) => findClassByIndex(item.index))
+          );
+        }
       });
     }
     newTaskApi(user, project_id).then((res) => {
@@ -69,7 +73,7 @@ const TaskPage = () => {
     );
   };
   const findClassByIndex = (index) => {
-    console.log("index", index);
+    // console.log("index", index);
     const obj = allClasses.find((c) => c._id == String(index));
     return obj;
   };
@@ -104,7 +108,7 @@ const TaskPage = () => {
         selectedLabels.push(preferedClasses[id]);
       }
     }
-    console.log("onClickSubmit", selectedLabels);
+    // console.log("onClickSubmit", selectedLabels);
 
     if (task && project_id) {
       let label_time = 8347;
