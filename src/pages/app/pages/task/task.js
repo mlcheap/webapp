@@ -76,6 +76,12 @@ const TaskPage = () => {
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
     );
   };
+  if (task && allClasses && !preferedClasses) {
+    const ai_predicteds = task["items"][1]["meta-label"]["ai"];
+    setPreferedClasses(
+      ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
+    );
+  }
   const findClassByIndex = (allClasses, index) => {
     // console.log("index", index);
     const obj = allClasses.find((c) => c._id == String(index));
