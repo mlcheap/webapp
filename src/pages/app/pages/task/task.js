@@ -40,7 +40,7 @@ const TaskPage = () => {
       setTask(newTask);
       const ai_predicteds = newTask["items"][1]["meta-label"]["ai"];
       setPreferedClasses(
-        ai_predicteds.map((item) => findClassByIndex(item.index))
+        ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
       );
     } else {
       navigate("/app/initial");
@@ -56,7 +56,9 @@ const TaskPage = () => {
         if (task) {
           const ai_predicteds = task["items"][1]["meta-label"]["ai"];
           setPreferedClasses(
-            ai_predicteds.map((item) => findClassByIndex(item.index))
+            ai_predicteds.map((item) =>
+              findClassByIndex(allClasses, item.index)
+            )
           );
         }
       });
@@ -72,7 +74,7 @@ const TaskPage = () => {
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
     );
   };
-  const findClassByIndex = (index) => {
+  const findClassByIndex = (allClasses, index) => {
     // console.log("index", index);
     const obj = allClasses.find((c) => c._id == String(index));
     return obj;
@@ -95,7 +97,7 @@ const TaskPage = () => {
       }).then((res) => {
         let oldPrs = [...preferedClasses];
         let newPrs = res["data"]["labels"].map((item) =>
-          findClassByIndex(item.index)
+          findClassByIndex(allClasses, item.index)
         );
         setPreferedClasses(oldPrs.concat(newPrs));
       });
