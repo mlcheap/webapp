@@ -6,6 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Assessment from "@mui/icons-material/Assessment";
+import Workspaces from "@mui/icons-material/Workspaces";
 import { userInfo, deleteUser } from "../services/userInfo";
 import { useNavigate } from "react-router-dom";
 
@@ -14,14 +15,17 @@ export default function SelectedListItem() {
   userInfo();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   function handleListItemClick(event, index) {
-    if (index === 0) {
+    if (index === 2) {
       deleteUser();
       navigate("/auth/login", { replace: true });
     } else {
       setSelectedIndex(index);
-    }
-    if (index === 1) {
-      navigate("/app/reports", { replace: true });
+      if (index === 0) {
+        navigate("/app/initial", { replace: true });
+      }
+      if (index === 1) {
+        navigate("/app/reports", { replace: true });
+      }
     }
   }
 
@@ -33,18 +37,28 @@ export default function SelectedListItem() {
           onClick={(event) => handleListItemClick(event, 0)}
         >
           <ListItemIcon>
-            <LogoutIcon />
+            <Workspaces />
           </ListItemIcon>
-          <ListItemText primary="logout" />
+          <ListItemText primary="projects" />
         </ListItemButton>
+
         <ListItemButton
-          selected={selectedIndex === 0}
+          selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}
         >
           <ListItemIcon>
             <Assessment />
           </ListItemIcon>
           <ListItemText primary="reports" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedIndex === 2}
+          onClick={(event) => handleListItemClick(event, 2)}
+        >
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="logout" />
         </ListItemButton>
       </List>
     </Box>
