@@ -1,0 +1,35 @@
+import * as React from "react";
+import SidebarItems from "./Sidebar";
+import { UserInfo } from "./UserInfo";
+import Drawer from "./Drawer";
+import AppBarHeader from "./AppBarHeader";
+import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+
+const AppBar = () => {
+  let [open, setOpen] = React.useState(false);
+  let navigate = useNavigate();
+  const handleDrower = (boolean) => (e) => {
+    setOpen(boolean);
+  };
+  const navigateProject = (e) => {
+    navigate(`/app/initial`);
+  };
+  return (
+    <Box sx={{ display: "flex", marginBottom: "100px" }}>
+      <CssBaseline />
+      <AppBarHeader
+        navigateProject={navigateProject}
+        open={open}
+        handleDrawerOpen={handleDrower(true)}
+      />
+      <Drawer
+        sidebarId="primarySidebar"
+        open={open}
+        handleDrawerClose={handleDrower(false)}
+      ></Drawer>
+    </Box>
+  );
+};
+export default AppBar;
