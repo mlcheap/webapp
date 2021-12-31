@@ -17,10 +17,10 @@ export default function ReportsPage() {
       <Grid item xs={12}>
         <TimeFilter />
       </Grid>
-      <Grid item xs={8}>
+      <Grid item sm={12} md={8}>
         <HourStatistics />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item sm={12} md={4}>
         <HourStatistics />
       </Grid>
     </Grid>

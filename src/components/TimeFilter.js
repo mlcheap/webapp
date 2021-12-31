@@ -22,11 +22,12 @@ const TimeFilter = () => {
             elevation={3}
             sx={{
               minHeight: 90,
+              padding: "8px",
               bgcolor: "background.default",
             }}
           >
             <Grid sx={{ flexGrow: 1, paddingLeft: 2 }} container spacing={2}>
-              <Grid item xs={2}>
+              <Grid item lg={2} md={3} sm={6} xs={12}>
                 <MobileDatePicker
                   label="from"
                   inputFormat="MM/dd/yyyy"
@@ -37,7 +38,7 @@ const TimeFilter = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item lg={2} md={3} sm={6} xs={12}>
                 <MobileDatePicker
                   label="to"
                   inputFormat="MM/dd/yyyy"
