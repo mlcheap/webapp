@@ -62,7 +62,7 @@ const Labels = ({
                 sx={{ margin: "5px" }}
                 label={
                   <Typography style={{ whiteSpace: "normal" }}>
-                    predicted_label["name"]
+                    {predicted_label["name"]}
                   </Typography>
                 }
                 variant="outlined"
@@ -75,7 +75,7 @@ const Labels = ({
                 sx={{ margin: "5px" }}
                 label={
                   <Typography style={{ whiteSpace: "normal" }}>
-                    predicted_label["name"]
+                    {predicted_label["name"]}
                   </Typography>
                 }
                 variant="outlined"
