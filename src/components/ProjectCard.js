@@ -45,7 +45,6 @@ const Info = ({ total_labeld, total_remains }) => {
   );
 };
 export default function MediaCard({ project, startProject }) {
-  console.log("project", project["icon"]);
   return (
     <Card sx={{ maxWidth: 245, margin: "auto" }}>
       <CardMedia

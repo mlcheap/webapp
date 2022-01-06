@@ -1,4 +1,6 @@
-import React, { PureComponent } from "react";
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import {
   BarChart,
   Bar,
@@ -93,10 +95,10 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const WorkBarChart = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer minWidth="95%" height={300}>
       <BarChart
-        width={300}
-        height={200}
+        minWidth={300}
+        minHeight={200}
         data={data}
         margin={{
           top: 5,
@@ -116,4 +118,11 @@ const WorkBarChart = () => {
   );
 };
 
-export default WorkBarChart;
+const Statistics = () => {
+  return (
+    <Paper sx={{ padding: "16px" }}>
+      <WorkBarChart />
+    </Paper>
+  );
+};
+export default Statistics;
