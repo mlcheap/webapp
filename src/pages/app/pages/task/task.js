@@ -46,7 +46,7 @@ const TaskPage = () => {
     let new_task = res["data"]["tasks"];
     setNewTask(new_task);
     setPreferedClasses([]);
-    update_tags(new_task[0], classes);
+    update_tags(new_task[0], [], classes);
     setChecked({});
   };
   useEffect(() => {
@@ -64,6 +64,7 @@ const TaskPage = () => {
       });
     }
     newTaskApi(user, project_id).then((res) => {
+      console.log("new task");
       prepareTask(res, classes);
     });
     setLoading(false);
@@ -74,7 +75,7 @@ const TaskPage = () => {
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
     );
   };
-  const update_tags = (task, classes) => {
+  const update_tags = (task, preferedClasses, classes) => {
     if (task && classes) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
@@ -87,9 +88,6 @@ const TaskPage = () => {
           new_tags.push(tag);
         }
       }
-      console.log(new_tags);
-      console.log("preferedclasses", preferedClasses);
-      console.log("all tags", preferedClasses.concat(new_tags));
       setPreferedClasses(preferedClasses.concat(new_tags));
     }
   };
@@ -108,7 +106,7 @@ const TaskPage = () => {
     });
   };
   let onClickMore = (event) => {
-    update_tags(task, allClasses);
+    update_tags(task, preferedClasses, allClasses);
   };
   let onClickSubmit = (event) => {
     let selectedLabels = [];
