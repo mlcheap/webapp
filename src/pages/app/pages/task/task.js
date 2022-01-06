@@ -115,7 +115,11 @@ const TaskPage = () => {
       excludes: [],
     }).then((res) => {
       console.log("search change", res);
-      setOptions(res.map((item) => findClassByIndex(allClasses, item.index)));
+      setOptions(
+        res["data"]["labels"].map((item) =>
+          findClassByIndex(allClasses, item.index)
+        )
+      );
     });
   };
   let onClickSubmit = (event) => {
