@@ -95,8 +95,11 @@ const TaskPage = () => {
 
   const findClassByIndex = (allClasses, index) => {
     // console.log("index", index);
-    const obj = allClasses.find((c) => c._id === String(index));
-    return obj;
+    if (allClasses != undefined) {
+      const obj = allClasses.find((c) => c._id === String(index));
+      return obj;
+    }
+    return {};
   };
 
   let onDescription = (index) => (event) => {
