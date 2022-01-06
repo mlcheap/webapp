@@ -45,7 +45,6 @@ const TaskPage = () => {
   const prepareTask = (res, classes) => {
     let new_task = res["data"]["tasks"];
     setNewTask(new_task);
-    setPreferedClasses([]);
     update_tags(new_task[0], [], classes);
     setChecked({});
   };
