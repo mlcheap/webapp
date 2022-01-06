@@ -18,7 +18,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const AppDrawer = ({ open, handleDrawerClose }) => {
+const AppDrawer = ({ open, handleDrawerClose, ...props }) => {
   return (
     <Drawer
       sx={{
@@ -32,6 +32,7 @@ const AppDrawer = ({ open, handleDrawerClose }) => {
       variant="persistent"
       anchor="left"
       open={open}
+      {...props}
     >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>

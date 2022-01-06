@@ -24,6 +24,15 @@ const AppBar = ({ open, setOpen }) => {
       <Drawer
         sidebarId="primarySidebar"
         open={open}
+        ModalProps={{
+          onBackdropClick: handleDrower(false),
+          onEscapeKeyDown: handleDrower(false),
+        }}
+        className="app-drawer"
+        docked={false}
+        variant="temporary"
+        onBackdropClick={handleDrower(false)}
+        onRequestChange={handleDrower(false)}
         handleDrawerClose={handleDrower(false)}
       ></Drawer>
     </Box>

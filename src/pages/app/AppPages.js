@@ -12,6 +12,7 @@ const AppPage = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickAway = () => {
+    console.log("handle away");
     setOpen(false);
   };
 
@@ -19,7 +20,7 @@ const AppPage = () => {
     <StyledEngineProvider injectFirst>
       <CssBaseline />
       <ClickAwayListener onClickAway={handleClickAway}>
-        <AppBar open={open} setOpen={setOpen} sx={{ position: "relative" }} />
+        <AppBar open={open} setOpen={setOpen} />
       </ClickAwayListener>
 
       {routing}
