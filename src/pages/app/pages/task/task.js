@@ -147,7 +147,6 @@ const TaskPage = () => {
         buffer_ids: [],
         skiped_ids: [task["task_id"]],
       }).then((res) => {
-        res = res["data"]["tasks"];
         prepareTask(res, allClasses);
       });
     }
