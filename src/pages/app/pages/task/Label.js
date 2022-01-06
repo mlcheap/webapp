@@ -65,6 +65,7 @@ const Labels = ({
                     {predicted_label["name"]}
                   </Typography>
                 }
+                style={{ height: "100%" }}
                 variant="outlined"
                 onClick={click_label(index)}
                 color="success"
@@ -73,6 +74,7 @@ const Labels = ({
             ) : (
               <Chip
                 sx={{ margin: "5px" }}
+                style={{ height: "100%" }}
                 label={
                   <Typography style={{ whiteSpace: "normal" }}>
                     {predicted_label["name"]}
