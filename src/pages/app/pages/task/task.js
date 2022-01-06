@@ -147,8 +147,8 @@ const TaskPage = () => {
         buffer_ids: [],
         skiped_ids: [task["task_id"]],
       }).then((res) => {
-        setNewTask(res["data"]["tasks"]);
-        setChecked({});
+        res = res["data"]["tasks"];
+        prepareTask(res, allClasses);
       });
     }
   };
