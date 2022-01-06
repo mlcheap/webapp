@@ -42,6 +42,13 @@ const TaskPage = () => {
       navigate("/app/initial");
     }
   };
+  const prepareTask = (res, classes) => {
+    let new_task = res["data"]["tasks"];
+    setNewTask(new_task);
+    setPreferedClasses([]);
+    update_tags(new_task[0], classes);
+    setChecked({});
+  };
   useEffect(() => {
     let classes = null;
     let new_task = [];
@@ -57,10 +64,7 @@ const TaskPage = () => {
       });
     }
     newTaskApi(user, project_id).then((res) => {
-      new_task = res["data"]["tasks"];
-      setNewTask(new_task);
-      setPreferedClasses([]);
-      update_tags(new_task[0], classes);
+      prepareTask(res, classes);
     });
     setLoading(false);
   }, []);
@@ -81,9 +85,6 @@ const TaskPage = () => {
           new_tags.push(tag);
         }
       }
-      console.log("preferedClasses", preferedClasses);
-      console.log("new_tags", new_tags);
-      console.log("update", new_tags.concat(preferedClasses));
       setPreferedClasses(preferedClasses.concat(new_tags));
     }
   };
@@ -103,20 +104,6 @@ const TaskPage = () => {
   };
   let onClickMore = (event) => {
     update_tags(task, allClasses);
-    // if (task) {
-    //   let task_id = task["task_id"];
-    //   aiApi(user, {
-    //     project_id,
-    //     task_id,
-    //     excludes: preferedClasses.map((pr) => pr["_id"]),
-    //   }).then((res) => {
-    //     let oldPrs = [...preferedClasses];
-    //     let newPrs = res["data"]["labels"].map((item) =>
-    //       findClassByIndex(allClasses, item.index)
-    //     );
-    //     setPreferedClasses(oldPrs.concat(newPrs));
-    //   });
-    // }
   };
   let onClickSubmit = (event) => {
     let selectedLabels = [];
@@ -125,7 +112,6 @@ const TaskPage = () => {
         selectedLabels.push(preferedClasses[id]);
       }
     }
-    // console.log("onClickSubmit", selectedLabels);
 
     if (task && project_id) {
       let label_time = 8347;
@@ -142,11 +128,7 @@ const TaskPage = () => {
         buffer_ids: [],
         skiped_ids: [],
       }).then((res) => {
-        let new_task = res["data"]["tasks"];
-        setNewTask(new_task);
-        setPreferedClasses([]);
-        update_tags(new_task[0], allClasses);
-        setChecked({});
+        prepareTask(res, allClasses);
       });
     }
   };
