@@ -1,6 +1,5 @@
 import * as React from "react";
 import SidebarItems from "./Sidebar";
-import { UserInfo } from "./UserInfo";
 import Drawer from "./Drawer";
 import AppBarHeader from "./AppBarHeader";
 import Box from "@mui/material/Box";
@@ -17,7 +16,7 @@ const AppBar = () => {
     navigate(`/app/initial`);
   };
   return (
-    <Box sx={{ display: "flex", marginBottom: "100px" }}>
+    <Box sx={{ display: "flex", marginBottom: "70px" }}>
       <CssBaseline />
       <AppBarHeader
         navigateProject={navigateProject}

@@ -50,33 +50,37 @@ const Labels = ({
   };
   return (
     <Box>
-      {predicted_labels.map((predicted_label, index) => (
-        <JobTooltip
-          title={getDescription(predicted_labels[index])}
-          key={index}
-          onOpen={onDescription(index)}
-        >
-          {checked[index] ? (
-            <Chip
-              sx={{ margin: "5px" }}
-              label={predicted_label["name"]}
-              variant="outlined"
-              onClick={click_label(index)}
-              color="success"
-              onDelete={handleDelete(index)}
-            />
-          ) : (
-            <Chip
-              sx={{ margin: "5px" }}
-              label={predicted_label["name"]}
-              variant="outlined"
-              deleteIcon={<DoneIcon />}
-              onDelete={handleDelete(index)}
-              onClick={click_label(index)}
-            />
-          )}
-        </JobTooltip>
-      ))}
+      {predicted_labels.map((predicted_label, index) =>
+        predicted_label["name"] ? (
+          <JobTooltip
+            title={getDescription(predicted_labels[index])}
+            key={index}
+            onOpen={onDescription(index)}
+          >
+            {checked[index] ? (
+              <Chip
+                sx={{ margin: "5px" }}
+                label={predicted_label["name"]}
+                variant="outlined"
+                onClick={click_label(index)}
+                color="success"
+                onDelete={handleDelete(index)}
+              />
+            ) : (
+              <Chip
+                sx={{ margin: "5px" }}
+                label={predicted_label["name"]}
+                variant="outlined"
+                deleteIcon={<DoneIcon />}
+                onDelete={handleDelete(index)}
+                onClick={click_label(index)}
+              />
+            )}
+          </JobTooltip>
+        ) : (
+          ""
+        )
+      )}
       <Divider sx={{ margin: "20px 0 " }} />
       <Box
         sx={{
