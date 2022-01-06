@@ -111,7 +111,7 @@ const TaskPage = () => {
       title: search,
       description: search,
       project_id: project_id,
-      task_id: task_id,
+      task_id: task["task_id"],
       excludes: [],
     }).then((res) => {
       console.log("search change", res);
