@@ -114,12 +114,13 @@ const TaskPage = () => {
       task_id: task["task_id"],
       excludes: [],
     }).then((res) => {
+      console.log("options", options);
       console.log("search change", res);
-      setOptions(
-        res["data"]["labels"].map((item) =>
-          findClassByIndex(allClasses, item.index)
-        )
+      let ops = res["data"]["labels"].map((item) =>
+        findClassByIndex(allClasses, item.index)
       );
+      console.log("search change", ops);
+      setOptions(ops);
     });
   };
   let onClickSubmit = (event) => {
