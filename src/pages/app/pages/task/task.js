@@ -106,7 +106,7 @@ const TaskPage = () => {
     update_tags(task, preferedClasses, allClasses);
   };
   let onChangeSearch = (search) => {
-    console.log(search);
+    // console.log(search);
     aiApi(user, {
       title: search,
       description: search,
@@ -114,12 +114,12 @@ const TaskPage = () => {
       task_id: task["task_id"],
       excludes: [],
     }).then((res) => {
-      console.log("options", options);
-      console.log("search change", res);
+      // console.log("options", options);
+      // console.log("search change", res);
       let ops = res["data"]["labels"].map((item) =>
         findClassByIndex(allClasses, item.index)
       );
-      console.log("search change", ops);
+      // console.log("search change", ops);
       setOptions(ops);
     });
   };

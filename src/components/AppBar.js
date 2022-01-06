@@ -1,13 +1,11 @@
 import * as React from "react";
-import SidebarItems from "./Sidebar";
 import Drawer from "./Drawer";
 import AppBarHeader from "./AppBarHeader";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 
-const AppBar = () => {
-  let [open, setOpen] = React.useState(false);
+const AppBar = ({ open, setOpen }) => {
   let navigate = useNavigate();
   const handleDrower = (boolean) => (e) => {
     setOpen(boolean);
