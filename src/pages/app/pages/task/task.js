@@ -64,7 +64,7 @@ const TaskPage = () => {
       });
     }
     newTaskApi(user, project_id).then((res) => {
-      console.log("new task");
+      new_task = res["data"]["tasks"];
       prepareTask(res, classes);
     });
     setLoading(false);
