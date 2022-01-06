@@ -50,7 +50,7 @@ const Labels = ({
   return (
     <Box>
       {predicted_labels.map((predicted_label, index) =>
-        predicted_label["name"] ? (
+        predicted_label["name"] !== undefined ? (
           <JobTooltip
             title={getDescription(predicted_labels[index])}
             key={index}
