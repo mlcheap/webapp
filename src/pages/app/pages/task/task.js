@@ -69,6 +69,7 @@ const TaskPage = () => {
     });
     setLoading(false);
   }, []);
+
   const addClass = (_class) => {
     _class["agent"] = "labeler";
     setPreferedClasses((oldClasses) =>
@@ -76,7 +77,7 @@ const TaskPage = () => {
     );
   };
   const update_tags = (task, prClasses, classes) => {
-    if (task && classes) {
+    if (task) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
       for (let i = 0; i < ai_predicteds.length; i++) {
