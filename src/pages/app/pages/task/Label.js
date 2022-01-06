@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import DoneIcon from "@mui/icons-material/Done";
 import Divider from "@mui/material/Divider";
-import { yellow } from "@mui/material/colors";
 
 import { JobTooltip } from "./JobToolTip";
 const Labels = ({
@@ -50,36 +49,38 @@ const Labels = ({
   };
   return (
     <Box>
-      {predicted_labels.map((predicted_label, index) =>
-        predicted_label["name"] ? (
-          <JobTooltip
-            title={getDescription(predicted_labels[index])}
-            key={index}
-            onOpen={onDescription(index)}
-          >
-            {checked[index] ? (
-              <Chip
-                sx={{ margin: "5px" }}
-                label={predicted_label["name"]}
-                variant="outlined"
-                onClick={click_label(index)}
-                color="success"
-                onDelete={handleDelete(index)}
-              />
-            ) : (
-              <Chip
-                sx={{ margin: "5px" }}
-                label={predicted_label["name"]}
-                variant="outlined"
-                deleteIcon={<DoneIcon />}
-                onDelete={handleDelete(index)}
-                onClick={click_label(index)}
-              />
-            )}
-          </JobTooltip>
-        ) : (
+      {predicted_labels.map(
+        (predicted_label, index) =>
+          // predicted_label["name"] ? (
+          //   <JobTooltip
+          //     title={getDescription(predicted_labels[index])}
+          //     key={index}
+          //     onOpen={onDescription(index)}
+          //   >
+          //     {checked[index] ? (
+          //       <Chip
+          //         sx={{ margin: "5px" }}
+          //         label={predicted_label["name"]}
+          //         variant="outlined"
+          //         onClick={click_label(index)}
+          //         color="success"
+          //         onDelete={handleDelete(index)}
+          //       />
+          //     ) : (
+          //       <Chip
+          //         sx={{ margin: "5px" }}
+          //         label={predicted_label["name"]}
+          //         variant="outlined"
+          //         deleteIcon={<DoneIcon />}
+          //         onDelete={handleDelete(index)}
+          //         onClick={click_label(index)}
+          //       />
+          //     )}
+          //   </JobTooltip>
+          // ) : (
+          //   ""
+          // )
           ""
-        )
       )}
       <Divider sx={{ margin: "20px 0 " }} />
       <Box

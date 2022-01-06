@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Footer from "../../components/Footer";
 import AppBar from "../../components/AppBar";
 const AppPage = () => {
-  let routing = useRoutes(appRoutes());
+  let routing = useRoutes(appRoutes);
 
   return (
     <StyledEngineProvider injectFirst>

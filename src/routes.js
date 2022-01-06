@@ -41,7 +41,7 @@ export const baseRoutes = (isLoggedIn, setUser) => [
     element: <Navigate to="/auth/login" />,
   },
 ];
-export const appRoutes = () => [
+export const appRoutes = [
   {
     path: "/initial",
     element: <InitialPage />,
