@@ -79,12 +79,14 @@ const TaskPage = () => {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
       for (let i = 0; i < ai_predicteds.length; i++) {
-        console.log(i);
         let tag = findClassByIndex(classes, ai_predicteds[i].index);
         if (!(tag in preferedClasses) && new_tags.length < 5) {
           new_tags.push(tag);
         }
       }
+      console.log(new_tags);
+      console.log("preferedclasses", preferedClasses);
+      console.log("all tags", preferedClasses.concat(new_tags));
       setPreferedClasses(preferedClasses.concat(new_tags));
     }
   };
