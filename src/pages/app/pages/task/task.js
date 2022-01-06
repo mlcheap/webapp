@@ -75,20 +75,20 @@ const TaskPage = () => {
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
     );
   };
-  const update_tags = (task, preferedClasses, classes) => {
+  const update_tags = (task, prClasses, classes) => {
     if (task && classes) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
       for (let i = 0; i < ai_predicteds.length; i++) {
         let tag = findClassByIndex(classes, ai_predicteds[i].index);
         if (
-          !preferedClasses.some((pr) => pr["_id"] === tag["_id"]) &&
+          !prClasses.some((pr) => pr["_id"] === tag["_id"]) &&
           new_tags.length < 5
         ) {
           new_tags.push(tag);
         }
       }
-      setPreferedClasses(preferedClasses.concat(new_tags));
+      setPreferedClasses(prClasses.concat(new_tags));
     }
   };
 
