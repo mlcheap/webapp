@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 // import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
 import DoneIcon from "@mui/icons-material/Done";
 import Divider from "@mui/material/Divider";
 
@@ -59,7 +60,11 @@ const Labels = ({
             {checked[index] ? (
               <Chip
                 sx={{ margin: "5px" }}
-                label={predicted_label["name"]}
+                label={
+                  <Typography style={{ whiteSpace: "normal" }}>
+                    predicted_label["name"]
+                  </Typography>
+                }
                 variant="outlined"
                 onClick={click_label(index)}
                 color="success"
@@ -68,7 +73,11 @@ const Labels = ({
             ) : (
               <Chip
                 sx={{ margin: "5px" }}
-                label={predicted_label["name"]}
+                label={
+                  <Typography style={{ whiteSpace: "normal" }}>
+                    predicted_label["name"]
+                  </Typography>
+                }
                 variant="outlined"
                 deleteIcon={<DoneIcon />}
                 onDelete={handleDelete(index)}
