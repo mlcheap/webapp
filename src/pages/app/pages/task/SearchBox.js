@@ -46,10 +46,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar({ options, addClass }) {
+export default function SearchAppBar({ setOptions, options, addClass }) {
   let [autocomplete, setAutocomplete] = useState(false);
   const onInputChange = (event) => {
     if (event.target.value.length > 2) {
+      setOptions(event.target.value);
       setAutocomplete(true);
     } else {
       setAutocomplete(false);

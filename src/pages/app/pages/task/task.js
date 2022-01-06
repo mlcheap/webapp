@@ -57,7 +57,6 @@ const TaskPage = () => {
         classes = data["data"]["classes"];
         setAllClasses(classes);
         setOptions(classes);
-        console.log("use effect", new_task[0]);
         update_tags(new_task[0], [], classes);
       });
     }
@@ -75,8 +74,6 @@ const TaskPage = () => {
     );
   };
   const update_tags = (task, prClasses, classes) => {
-    console.log("update tags");
-    console.log("task", task);
     if (task) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
@@ -94,7 +91,6 @@ const TaskPage = () => {
   };
 
   const findClassByIndex = (allClasses, index) => {
-    // console.log("index", index);
     const obj = allClasses.find((c) => c._id === String(index));
     return obj;
   };
@@ -108,6 +104,13 @@ const TaskPage = () => {
   };
   let onClickMore = (event) => {
     update_tags(task, preferedClasses, allClasses);
+  };
+  let onChangeSearch = (search) => {
+    console.log(search);
+    aiApi(user, { title: search, description: search }).then((res) => {
+      console.log("search change", res);
+      setOptions(res.map((item) => findClassByIndex(allClasses, item.index)));
+    });
   };
   let onClickSubmit = (event) => {
     let selectedLabels = [];
@@ -155,7 +158,11 @@ const TaskPage = () => {
   return (
     <Box>
       <Box align="center" justify="center" alignItems="center">
-        <SearchBox options={options} addClass={addClass} />
+        <SearchBox
+          onChange={onChangeSearch}
+          options={options}
+          addClass={addClass}
+        />
       </Box>
       <Grid container spacing={2} sx={{ padding: "1vh" }}>
         <Grid item md={9} xs={12}>
