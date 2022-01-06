@@ -72,6 +72,7 @@ export default function SearchAppBar({ onChange, options, addClass }) {
               disableClearable
               open={autocomplete}
               options={options}
+              filterOptions={(options, state) => options}
               onInputChange={onInputChange}
               onChange={(e, value) => addClass(value)}
               getOptionLabel={(option) => option.name}

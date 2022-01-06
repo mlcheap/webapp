@@ -114,12 +114,12 @@ const TaskPage = () => {
       task_id: task["task_id"],
       excludes: [],
     }).then((res) => {
-      console.log("options", options);
-      console.log("search change", res);
+      // console.log("options", options);
+      // console.log("search change", res);
       let ops = res["data"]["labels"].map((item) =>
         findClassByIndex(allClasses, item.index)
       );
-      console.log("search change", ops);
+      // console.log("search change", ops);
       setOptions(ops);
     });
   };
