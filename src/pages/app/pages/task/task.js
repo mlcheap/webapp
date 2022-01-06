@@ -80,7 +80,7 @@ const TaskPage = () => {
           new_tags.push(tag);
         }
       }
-      setPreferedClasses(preferedClasses.push(new_tags));
+      setPreferedClasses(preferedClasses.concat(new_tags));
     }
   };
 
