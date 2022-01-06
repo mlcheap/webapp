@@ -58,7 +58,7 @@ const TaskPage = () => {
         setAllClasses(classes);
         setOptions(classes);
         console.log("use effect", new_task[0]);
-        update_tags(new_task[0], classes);
+        update_tags(new_task[0], [], classes);
       });
     }
     newTaskApi(user, project_id).then((res) => {
