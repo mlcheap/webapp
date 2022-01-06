@@ -57,9 +57,7 @@ const TaskPage = () => {
         classes = data["data"]["classes"];
         setAllClasses(classes);
         setOptions(classes);
-        if (new_task) {
-          update_tags(new_task[0], classes);
-        }
+        update_tags(new_task[0], classes);
       });
     }
     newTaskApi(user, project_id).then((res) => {
