@@ -77,7 +77,7 @@ const TaskPage = () => {
       for (let i = 0; i < ai_predicteds.length; i++) {
         console.log(i);
         let tag = findClassByIndex(allClasses, ai_predicteds[i].index);
-        if (!(tag in preferedClasses) && new_tags.length <= 5) {
+        if (!(tag in preferedClasses) && new_tags.length < 5) {
           new_tags.push(tag);
         }
       }
@@ -142,7 +142,10 @@ const TaskPage = () => {
         buffer_ids: [],
         skiped_ids: [],
       }).then((res) => {
-        setNewTask(res["data"]["tasks"]);
+        let new_task = res["data"]["tasks"];
+        setNewTask(new_task);
+        setPreferedClasses([]);
+        update_tags(new_task[0], allClasses);
         setChecked({});
       });
     }
