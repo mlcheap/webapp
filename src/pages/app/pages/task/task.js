@@ -59,6 +59,7 @@ const TaskPage = () => {
     newTaskApi(user, project_id).then((res) => {
       new_task = res["data"]["tasks"];
       setNewTask(new_task);
+      setPreferedClasses([]);
       update_tags(new_task[0], classes);
     });
     setLoading(false);
@@ -72,9 +73,14 @@ const TaskPage = () => {
   const update_tags = (task, allClasses) => {
     if (task && allClasses) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
-      setPreferedClasses(
-        ai_predicteds.map((item) => findClassByIndex(allClasses, item.index))
-      );
+      let new_tags = [];
+      for (let i = 0; i < ai_predicteds.length; i++) {
+        let tag = findClassByIndex(allClasses, ai_predicteds[i].index);
+        if (~tag in preferedClasses && new_tags.length <= 5) {
+          new_tags.push(tag);
+        }
+      }
+      setPreferedClasses(preferedClasses.push(new_tags));
     }
   };
 
@@ -92,20 +98,21 @@ const TaskPage = () => {
     });
   };
   let onClickMore = (event) => {
-    if (task) {
-      let task_id = task["task_id"];
-      aiApi(user, {
-        project_id,
-        task_id,
-        excludes: preferedClasses.map((pr) => pr["_id"]),
-      }).then((res) => {
-        let oldPrs = [...preferedClasses];
-        let newPrs = res["data"]["labels"].map((item) =>
-          findClassByIndex(allClasses, item.index)
-        );
-        setPreferedClasses(oldPrs.concat(newPrs));
-      });
-    }
+    update_tags(task, allClasses);
+    // if (task) {
+    //   let task_id = task["task_id"];
+    //   aiApi(user, {
+    //     project_id,
+    //     task_id,
+    //     excludes: preferedClasses.map((pr) => pr["_id"]),
+    //   }).then((res) => {
+    //     let oldPrs = [...preferedClasses];
+    //     let newPrs = res["data"]["labels"].map((item) =>
+    //       findClassByIndex(allClasses, item.index)
+    //     );
+    //     setPreferedClasses(oldPrs.concat(newPrs));
+    //   });
+    // }
   };
   let onClickSubmit = (event) => {
     let selectedLabels = [];
