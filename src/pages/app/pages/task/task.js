@@ -57,6 +57,7 @@ const TaskPage = () => {
         classes = data["data"]["classes"];
         setAllClasses(classes);
         setOptions(classes);
+        console.log("use effect", new_task[0]);
         update_tags(new_task[0], classes);
       });
     }
@@ -74,6 +75,8 @@ const TaskPage = () => {
     );
   };
   const update_tags = (task, prClasses, classes) => {
+    console.log("update tags");
+    console.log("task", task);
     if (task) {
       const ai_predicteds = task["items"][1]["meta-label"]["ai"];
       let new_tags = [];
