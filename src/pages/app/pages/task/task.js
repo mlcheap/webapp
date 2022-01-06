@@ -107,7 +107,11 @@ const TaskPage = () => {
   };
   let onChangeSearch = (search) => {
     console.log(search);
-    aiApi(user, { title: search, description: search }).then((res) => {
+    aiApi(user, {
+      title: search,
+      description: search,
+      project_id: project_id,
+    }).then((res) => {
       console.log("search change", res);
       setOptions(res.map((item) => findClassByIndex(allClasses, item.index)));
     });
