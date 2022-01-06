@@ -81,7 +81,7 @@ const TaskPage = () => {
       for (let i = 0; i < ai_predicteds.length; i++) {
         let tag = findClassByIndex(classes, ai_predicteds[i].index);
         if (
-          preferedClasses.some((pr) => pr["_id"] === tag["_id"]) &&
+          !preferedClasses.some((pr) => pr["_id"] === tag["_id"]) &&
           new_tags.length < 5
         ) {
           new_tags.push(tag);
