@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { loginUser } from "../../../services/auth_api";
 import Avatar from "@mui/material/Avatar";
@@ -7,6 +7,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import CloseIcon from "@mui/icons-material/Close";
+
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -14,24 +16,31 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Alert, Snackbar } from "@mui/material";
+
 const theme = createTheme();
-
 export default function LoginPage({ setUser }) {
-  const default_email = "ari@gmail.com";
-  const default_password = "123ari123";
-
+  const [emailOrPasswordError, setEmailOrPasswordError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     loginUser({
       email: data.get("email"),
       password: data.get("password"),
-    }).then((response) => setUser(Object.assign(response.data, response.meta)));
+    })
+      .then((response) => {
+        console.log(response);
+        setUser(Object.assign(response.data, response.meta));
+      })
+      .catch((err) => {
+        setEmailOrPasswordError(err.message);
+      });
   };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
         <Box
           sx={{
             marginTop: 8,
@@ -60,7 +69,6 @@ export default function LoginPage({ setUser }) {
               label="Email Address"
               name="email"
               autoComplete="email"
-              defaultValue={default_email}
               autoFocus
             />
             <TextField
@@ -71,13 +79,12 @@ export default function LoginPage({ setUser }) {
               label="Password"
               type="password"
               id="password"
-              defaultValue={default_password}
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -87,11 +94,11 @@ export default function LoginPage({ setUser }) {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
-              </Grid>
+              </Grid> */}
               <Grid item>
                 <Link href="/auth/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -100,7 +107,20 @@ export default function LoginPage({ setUser }) {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={emailOrPasswordError !== ""}
+          autoHideDuration={3000}
+          onClose={() => setEmailOrPasswordError("")}
+        >
+          <Alert
+            severity="error"
+            sx={{ width: "100%" }}
+            onClose={() => setEmailOrPasswordError("")}
+          >
+            {emailOrPasswordError}
+          </Alert>
+        </Snackbar>
       </Container>
     </ThemeProvider>
   );

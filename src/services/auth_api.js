@@ -7,7 +7,14 @@ export async function loginUser(credentials) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  }).then((response) => {
+    return response.json().then((data) => {
+      if (response.ok) {
+        return Promise.resolve(data);
+      }
+      return Promise.reject(data);
+    });
+  });
 }
 
 export async function signupUser(credentials) {
@@ -17,5 +24,12 @@ export async function signupUser(credentials) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  }).then((response) => {
+    return response.json().then((data) => {
+      if (response.ok) {
+        return Promise.resolve(data);
+      }
+      return Promise.reject(data);
+    });
+  });
 }

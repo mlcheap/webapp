@@ -1,3 +1,5 @@
+import validator from "validator";
+
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { signupUser } from "../../../services/auth_api";
 import Snackbar from "@mui/material/Snackbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Alert } from "@mui/material";
 
 const theme = createTheme();
 const genders = [
@@ -23,8 +26,9 @@ const genders = [
 ];
 
 export default function SignUp({ setUser }) {
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [gender, setGender] = useState();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleGenderChange = (event) => {
@@ -35,19 +39,35 @@ export default function SignUp({ setUser }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    signupUser({
-      email: data.get("email"),
-      password: data.get("password"),
-      name: data.get("fullName"),
-      gender: data.get("gender"),
-    }).then((response) => {
-      if (response.status !== 200) {
-        setSnackbarMessage(response.message);
-        setOpenSnackbar(true);
-      }
+    const email = data.get("email");
+    const password = data.get("password");
 
-      setUser(Object.assign(response.data, response.meta));
-    });
+    if (!validator.isEmail(email)) {
+      setEmailError("email is not correct");
+    } else if (
+      !validator.isStrongPassword(password, {
+        minLength: 6,
+        minLowercase: 0,
+        minUppercase: 0,
+        minNumbers: 0,
+        minSymbols: 0,
+      })
+    ) {
+      setPasswordError("password is not strong");
+    } else {
+      signupUser({
+        email: data.get("email"),
+        password: data.get("password"),
+        name: data.get("fullName"),
+        gender: data.get("gender"),
+      })
+        .then((response) => {
+          setUser(Object.assign(response.data, response.meta));
+        })
+        .catch((err) => {
+          setSnackbarMessage(err.message);
+        });
+    }
   };
 
   return (
@@ -110,10 +130,15 @@ export default function SignUp({ setUser }) {
                 <TextField
                   required
                   fullWidth
+                  error={emailError !== ""}
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => {
+                    setEmailError("");
+                  }}
+                  helperText={emailError}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,6 +150,11 @@ export default function SignUp({ setUser }) {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={passwordError !== ""}
+                  onChange={(e) => {
+                    setPasswordError("");
+                  }}
+                  helperText={passwordError}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -155,12 +185,18 @@ export default function SignUp({ setUser }) {
         </Box>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={openSnackbar}
-          autoHideDuration={4000}
-          onClose={() => setOpenSnackbar(false)}
-          message={snackbarMessage}
-          key={snackbarMessage}
-        />
+          open={snackbarMessage !== ""}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarMessage("")}
+        >
+          <Alert
+            severity="error"
+            sx={{ width: "100%" }}
+            onClose={() => setSnackbarMessage("")}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </Container>
     </ThemeProvider>
   );
