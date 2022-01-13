@@ -5,7 +5,8 @@ import Box from "@mui/material/Box";
 // import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
-import DoneIcon from "@mui/icons-material/Done";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import Divider from "@mui/material/Divider";
 
 import { JobTooltip } from "./JobToolTip";
@@ -67,6 +68,7 @@ const Labels = ({
                 }
                 style={{ height: "100%" }}
                 variant="outlined"
+                deleteIcon={<RemoveIcon />}
                 onClick={click_label(index)}
                 color="success"
                 onDelete={handleDelete(index)}
@@ -81,7 +83,7 @@ const Labels = ({
                   </Typography>
                 }
                 variant="outlined"
-                deleteIcon={<DoneIcon />}
+                deleteIcon={<AddIcon />}
                 onDelete={handleDelete(index)}
                 onClick={click_label(index)}
               />

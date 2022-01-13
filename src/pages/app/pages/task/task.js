@@ -20,10 +20,13 @@ import {
 } from "./../../../../services/label_api";
 
 import Api from "./../../../../services/api";
+import { Alert, Snackbar } from "@mui/material";
 
 const TaskPage = () => {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+
   let [searchParams, setSearchParams] = useSearchParams();
   let [checked, setChecked] = useState({});
   let [options, setOptions] = useState([]);
@@ -130,24 +133,27 @@ const TaskPage = () => {
         selectedLabels.push(preferedClasses[id]);
       }
     }
-
-    if (task && project_id) {
-      let label_time = 8347;
-      submitApi(user, {
-        project_id: project_id,
-        task: {
-          task_id: task["task_id"],
-          labels: selectedLabels.map((label) => ({
-            _id: label["_id"],
-            name: label["name"],
-          })),
-          label_time: label_time,
-        },
-        buffer_ids: [],
-        skiped_ids: [],
-      }).then((res) => {
-        prepareTask(res, allClasses);
-      });
+    if (selectedLabels.length === 0) {
+      setOpenSnackBar(true);
+    } else {
+      if (task && project_id) {
+        let label_time = 8347;
+        submitApi(user, {
+          project_id: project_id,
+          task: {
+            task_id: task["task_id"],
+            labels: selectedLabels.map((label) => ({
+              _id: label["_id"],
+              name: label["name"],
+            })),
+            label_time: label_time,
+          },
+          buffer_ids: [],
+          skiped_ids: [],
+        }).then((res) => {
+          prepareTask(res, allClasses);
+        });
+      }
     }
   };
   let onClickSkipped = (event) => {
@@ -168,13 +174,6 @@ const TaskPage = () => {
   };
   return (
     <Box>
-      <Box align="center" justify="center" alignItems="center">
-        <SearchBox
-          onChange={onChangeSearch}
-          options={options}
-          addClass={addClass}
-        />
-      </Box>
       <Grid container spacing={2} sx={{ padding: "1vh" }}>
         <Grid item md={9} xs={12}>
           <Box sx={{ padding: "10px" }}>
@@ -200,6 +199,14 @@ const TaskPage = () => {
           </Box>
         </Grid>
         <Grid item md={3} xs={12}>
+          <Box align="center" justify="center" alignItems="center">
+            <SearchBox
+              onChange={onChangeSearch}
+              options={options}
+              addClass={addClass}
+            />
+          </Box>
+
           <Labels
             predicted_labels={preferedClasses}
             setSelectItem={setSelectItem}
@@ -213,6 +220,20 @@ const TaskPage = () => {
           />
         </Grid>
       </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openSnackBar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackBar(false)}
+      >
+        <Alert
+          severity="error"
+          sx={{ width: "100%" }}
+          onClose={() => setOpenSnackBar(false)}
+        >
+          {"you can't submit empty list"}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

@@ -14,11 +14,12 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginLeft: 0,
+  margin: 0,
   width: "100%",
+  padding: 0,
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
+    // marginLeft: theme.spacing(1),
+    // width: "auto",
   },
 }));
 
@@ -28,6 +29,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   position: "absolute",
   pointerEvents: "none",
   display: "flex",
+
   alignItems: "center",
   justifyContent: "center",
 }));
@@ -35,13 +37,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
+    // padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
+    // transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "20ch",
+      width: "32ch",
     },
   },
 }));
@@ -49,18 +51,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar({ onChange, options, addClass }) {
   let [autocomplete, setAutocomplete] = useState(false);
   const onInputChange = (event) => {
-    if (event.target.value.length > 2) {
-      onChange(event.target.value);
-      setAutocomplete(true);
-    } else {
-      setAutocomplete(false);
-    }
+    // if (event.target.value.length > 2) {
+    onChange(event.target.value);
+    //   setAutocomplete(true);
+    // } else {
+    //   setAutocomplete(false);
+    // }
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar sx={{ margin: "auto" }}>
+    <Box sx={{ flexGrow: 1, marginTop: "10px", marginBottom: "10px" }}>
+      <AppBar position="static" sx={{ padding: 0 }} style={{ padding: 0 }}>
+        <Toolbar sx={{ margin: 0 }} style={{ padding: "16px" }}>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -69,8 +71,8 @@ export default function SearchAppBar({ onChange, options, addClass }) {
             <Autocomplete
               freeSolo
               id="free-solo-2-demo"
-              disableClearable
-              open={autocomplete}
+              // disableClearable
+              // open={autocomplete}
               options={options}
               filterOptions={(options, state) => options}
               onInputChange={onInputChange}
