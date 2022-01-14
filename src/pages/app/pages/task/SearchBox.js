@@ -60,7 +60,7 @@ export default function SearchAppBar({ onChange, options, addClass }) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, marginTop: "10px", marginBottom: "10px" }}>
+    <Box sx={{ flexGrow: 1, marginTop: "2px", marginBottom: "10px" }}>
       <AppBar position="static" sx={{ padding: 0 }} style={{ padding: 0 }}>
         <Toolbar sx={{ margin: 0 }} style={{ padding: "16px" }}>
           <Search>

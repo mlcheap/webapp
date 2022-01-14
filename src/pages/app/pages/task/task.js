@@ -4,13 +4,13 @@ import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { json_obj } from "./sample";
+// import { json_obj } from "./sample";
 import SearchBox from "./SearchBox";
 import Labels from "./Label";
 import { useNavigate } from "react-router-dom";
 import { userInfo } from "./../../../../services/userInfo";
-import CircularProgress from "@mui/material/CircularProgress";
-
+// import CircularProgress from "@mui/material/CircularProgress";
+import StatBar from "./StatBoard";
 import {
   getAllClassesApi,
   aiApi,
@@ -34,6 +34,8 @@ const TaskPage = () => {
   let [allClasses, setAllClasses] = useState();
   const user = userInfo();
   let [task, setTask] = useState();
+  let [meta, setMeta] = useState();
+
   let [selectItem, setSelectItem] = useState(0);
   let project_id = searchParams.get("project_id");
 
@@ -48,6 +50,7 @@ const TaskPage = () => {
   const prepareTask = (res, classes) => {
     let new_task = res["data"]["tasks"];
     setNewTask(new_task);
+    setMeta(res["meta"]);
     update_tags(new_task[0], [], classes);
     setChecked({});
   };
@@ -175,8 +178,15 @@ const TaskPage = () => {
   return (
     <Box>
       <Grid container spacing={2} sx={{ padding: "1vh" }}>
+        <Grid item sm={12} textAlign="center">
+          <StatBar
+            centered
+            total_labeled={meta ? meta["total_labeled"] : 0}
+            total_remain={meta ? meta["total_remain"] : 0}
+          />
+        </Grid>
         <Grid item md={9} xs={12}>
-          <Box sx={{ padding: "10px" }}>
+          <Box sx={{ padding: "2px" }}>
             <Paper sx={{ minHeight: "calc( 100vh - 240px) ", padding: "20px" }}>
               <Typography
                 variant="h4"
