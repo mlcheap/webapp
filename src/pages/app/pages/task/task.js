@@ -122,9 +122,11 @@ const TaskPage = () => {
     }).then((res) => {
       // console.log("options", options);
       // console.log("search change", res);
+      // console.log(res["data"]["labels"]);
       let ops = res["data"]["labels"].map((item) =>
         findClassByIndex(allClasses, item.index)
       );
+      // console.log(ops);
       // console.log("search change", ops);
       setOptions(ops);
     });

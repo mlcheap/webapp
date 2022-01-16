@@ -78,6 +78,13 @@ export default function SearchAppBar({ onChange, options, addClass }) {
               onInputChange={onInputChange}
               onChange={(e, value) => addClass(value)}
               getOptionLabel={(option) => option.name}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option._id}>
+                    {option.name}
+                  </li>
+                );
+              }}
               renderInput={(params) => (
                 <StyledInputBase
                   ref={params.InputProps.ref}
