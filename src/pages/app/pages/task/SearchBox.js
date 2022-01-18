@@ -55,8 +55,15 @@ export default function SearchAppBar({ onChange, options, addClass }) {
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
       all_options.push({ name: option.name, _id: option._id });
-      for (let j = 0; j < option.alternates.length; j++) {
-        const altername = eval(option.alternates[j]);
+      let alternates = option.alternates;
+      if (typeof alternates === "string" || alternates instanceof String) {
+        alternates = alternates.slice(1, -1).split(",");
+        alternates = alternates.map((alternate) => alternate.slice(1, -1));
+      }
+
+      for (let j = 0; j < alternates.length; j++) {
+        let altername = alternates[j];
+
         all_options.push({
           name: altername,
           _id: option._id + "_" + j,
