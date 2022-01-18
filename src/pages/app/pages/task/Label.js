@@ -5,7 +5,9 @@ import Box from "@mui/material/Box";
 // import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
+import AddIcon from "@mui/icons-material/Done";
+import InfoIcon from "@mui/icons-material/Info";
+
 import RemoveIcon from "@mui/icons-material/Remove";
 import Divider from "@mui/material/Divider";
 
@@ -53,13 +55,19 @@ const Labels = ({
     <Box>
       {predicted_labels.map((predicted_label, index) =>
         predicted_label && "name" in predicted_label ? (
-          <JobTooltip
-            title={getDescription(predicted_labels[index])}
-            key={index}
-            onOpen={onDescription(index)}
-          >
+          <Box>
             {checked[index] ? (
               <Chip
+                icon={
+                  <InfoIcon fontSize="small" />
+                  //   <JobTooltip
+                  //   title={getDescription(predicted_labels[index])}
+                  //   key={index}
+                  //   onOpen={onDescription(index)}
+                  // >
+
+                  // </JobTooltip>
+                }
                 sx={{ margin: "5px" }}
                 label={
                   <Typography style={{ whiteSpace: "normal" }}>
@@ -68,13 +76,23 @@ const Labels = ({
                 }
                 style={{ height: "100%" }}
                 variant="outlined"
-                deleteIcon={<RemoveIcon />}
+                deleteIcon={<AddIcon />}
+                // deleteIcon={<RemoveIcon />}
                 onClick={click_label(index)}
                 color="success"
                 onDelete={handleDelete(index)}
               />
             ) : (
               <Chip
+                icon={
+                  <JobTooltip
+                    title={getDescription(predicted_labels[index])}
+                    key={index}
+                    onOpen={onDescription(index)}
+                  >
+                    <InfoIcon fontSize="small" />
+                  </JobTooltip>
+                }
                 sx={{ margin: "5px" }}
                 style={{ height: "100%" }}
                 label={
@@ -83,12 +101,11 @@ const Labels = ({
                   </Typography>
                 }
                 variant="outlined"
-                deleteIcon={<AddIcon />}
-                onDelete={handleDelete(index)}
+                // onDelete={handleDelete(index)}
                 onClick={click_label(index)}
               />
             )}
-          </JobTooltip>
+          </Box>
         ) : (
           ""
         )

@@ -50,15 +50,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar({ onChange, options, addClass }) {
   let [autocomplete, setAutocomplete] = useState(false);
+  const get_also_alternatives = (options) => {
+    let all_options = [];
+    for (let i = 0; i < options.length; i++) {
+      const option = options[i];
+      all_options.push({ name: option.name, _id: option._id });
+      for (let j = 0; j < option.alternates.length; j++) {
+        const altername = option.alternates[j];
+        all_options.push({
+          name: altername,
+          _id: option._id + "_" + j,
+        });
+      }
+    }
+
+    return all_options;
+  };
   const onInputChange = (event) => {
     // if (event.target.value.length > 2) {
     onChange(event.target.value);
+
     //   setAutocomplete(true);
     // } else {
     //   setAutocomplete(false);
     // }
   };
-
+  const onClickItem = (value) => {
+    if (value && "_id" in value) {
+      console.log("value", value._id.split("_"));
+      const _id = value._id.split("_")[0];
+      addClass(_id);
+    }
+  };
   return (
     <Box sx={{ flexGrow: 1, marginTop: "2px", marginBottom: "10px" }}>
       <AppBar position="static" sx={{ padding: 0 }} style={{ padding: 0 }}>
@@ -73,10 +96,10 @@ export default function SearchAppBar({ onChange, options, addClass }) {
               id="free-solo-2-demo"
               // disableClearable
               // open={autocomplete}
-              options={options}
+              options={get_also_alternatives(options)}
               filterOptions={(options, state) => options}
               onInputChange={onInputChange}
-              onChange={(e, value) => addClass(value)}
+              onChange={(e, value) => onClickItem(value)}
               getOptionLabel={(option) => option.name}
               renderOption={(props, option) => {
                 return (

@@ -62,7 +62,7 @@ const TaskPage = () => {
       getAllClassesApi(user, project_id).then((data) => {
         classes = data["data"]["classes"];
         setAllClasses(classes);
-        setOptions(classes);
+        // setOptions(classes);
         update_tags(new_task[0], [], classes);
       });
     }
@@ -73,7 +73,8 @@ const TaskPage = () => {
     setLoading(false);
   }, []);
 
-  const addClass = (_class) => {
+  const addClass = (_id) => {
+    let _class = findClassByIndex(allClasses, _id);
     _class["agent"] = "labeler";
     setPreferedClasses((oldClasses) =>
       oldClasses.indexOf(_class) === -1 ? [...oldClasses, _class] : oldClasses
@@ -113,23 +114,27 @@ const TaskPage = () => {
   };
   let onChangeSearch = (search) => {
     // console.log(search);
-    aiApi(user, {
-      title: search,
-      description: search,
-      project_id: project_id,
-      task_id: task["task_id"],
-      excludes: [],
-    }).then((res) => {
-      // console.log("options", options);
-      // console.log("search change", res);
-      // console.log(res["data"]["labels"]);
-      let ops = res["data"]["labels"].map((item) =>
-        findClassByIndex(allClasses, item.index)
-      );
-      // console.log(ops);
-      // console.log("search change", ops);
-      setOptions(ops);
-    });
+    if (search.length < 3) {
+      setOptions([]);
+    } else {
+      aiApi(user, {
+        title: search,
+        description: search,
+        project_id: project_id,
+        task_id: task["task_id"],
+        excludes: [],
+      }).then((res) => {
+        // console.log("options", options);
+        // console.log("search change", res);
+        // console.log(res["data"]["labels"]);
+        let ops = res["data"]["labels"].map((item) =>
+          findClassByIndex(allClasses, item.index)
+        );
+        // console.log(ops);
+        // console.log("search change", ops);
+        setOptions(ops);
+      });
+    }
   };
   let onClickSubmit = (event) => {
     let selectedLabels = [];
@@ -185,6 +190,7 @@ const TaskPage = () => {
             centered
             total_labeled={meta ? meta["total_labeled"] : 0}
             total_remain={meta ? meta["total_remain"] : 0}
+            total_skipped={meta ? meta["total_skipped"] : 0}
           />
         </Grid>
         <Grid item md={9} xs={12}>
