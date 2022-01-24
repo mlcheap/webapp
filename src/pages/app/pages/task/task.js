@@ -159,13 +159,12 @@ const TaskPage = () => {
       setOpenSnackBar(true);
     } else {
       if (task && project_id) {
-        let label_time = 8347;
         submitApi(user, {
           project_id: project_id,
           task: {
             task_id: task["task_id"],
             labels: selectedLabels,
-            label_time: label_time,
+            label_time: Date().toLocaleString(),
           },
           buffer_ids: [],
           skiped_ids: [],
