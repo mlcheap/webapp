@@ -32,25 +32,59 @@ const Labels = ({
     setSelectItem(index);
     handleChange(index);
   };
+  const getTitle = (predicted_label) => {
+    return (
+      <div>
+        <div>
+          <strong>{getNameLabel(predicted_label)}</strong>
+        </div>
+        <div>
+          <Divider sx={{ borderBlockColor: "white", margin: "2px" }} />
+
+          <strong style={{ fontSize: 11 }}>
+            {getAlternates(predicted_label).join("/")}
+          </strong>
+        </div>
+        <Divider sx={{ borderBlockColor: "white", margin: "2px" }} />
+
+        <div>
+          <span>{getDescription(predicted_label)}</span>
+        </div>
+      </div>
+    );
+  };
   const click_label = (index) => (e) => {
     setSelectItem(index);
     handleChange(index);
   };
-  const getLabel = (predicted_label) => {
+  const getNameLabel = (predicted_label) => {
+    let name = predicted_label["name"];
+    if (predicted_label["search_name"]) {
+      name = predicted_label["search_name"];
+    }
+
+    return name;
+  };
+
+  const getAlternates = (predicted_label) => {
     let alters = predicted_label["alternates"];
+    let name = getNameLabel(predicted_label);
 
     if (typeof alters === "string" || alters instanceof String) {
       alters = alters ? alters.slice(1, -1).trim().split(",") : [];
     }
-
+    if (predicted_label["search_name"]) {
+      alters[alters.indexOf(name)] = predicted_label["name"];
+    }
+    return alters;
+  };
+  const getLabel = (predicted_label) => {
+    let name = getNameLabel(predicted_label);
+    let alters = getAlternates(predicted_label);
     return (
       <Box>
         <Typography style={{ whiteSpace: "normal" }}>
-          <strong>
-            {predicted_labels["search_name"]
-              ? predicted_labels["search_name"]
-              : predicted_label["name"]}
-          </strong>
+          <strong>{name}</strong>
         </Typography>
         <Typography
           sx={{
@@ -80,7 +114,15 @@ const Labels = ({
           <Box key={index}>
             {checked[index] ? (
               <Chip
-                icon={<InfoIcon fontSize="small" />}
+                icon={
+                  <JobTooltip
+                    title={getTitle(predicted_label)}
+                    key={index}
+                    onOpen={onDescription(index)}
+                  >
+                    <InfoIcon fontSize="small" />
+                  </JobTooltip>
+                }
                 sx={{ margin: "5px" }}
                 style={{ height: "100%" }}
                 variant="outlined"
@@ -94,7 +136,7 @@ const Labels = ({
               <Chip
                 icon={
                   <JobTooltip
-                    title={getDescription(predicted_labels[index])}
+                    title={getTitle(predicted_label)}
                     key={index}
                     onOpen={onDescription(index)}
                   >
