@@ -124,7 +124,7 @@ const TaskPage = () => {
     update_tags(task, preferedClasses, allClasses);
   };
   let onChangeSearch = (search) => {
-    // console.log(search);
+    console.log(preferedClasses.map((item) => item._id));
     if (search.length < 3) {
       setOptions([]);
     } else {
@@ -133,7 +133,7 @@ const TaskPage = () => {
         description: search,
         project_id: project_id,
         task_id: task["task_id"],
-        excludes: [],
+        excluds: preferedClasses.map((item) => item._id),
       }).then((res) => {
         let ops = res["data"]["labels"].map((item) =>
           findClassByIndex(allClasses, item.index)
