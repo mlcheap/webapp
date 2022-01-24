@@ -40,7 +40,11 @@ const Labels = ({
     return (
       <Box>
         <Typography style={{ whiteSpace: "normal" }}>
-          <strong>{predicted_label["name"]}</strong>
+          <strong>
+            {predicted_labels["search_name"]
+              ? predicted_labels["search_name"]
+              : predicted_label["name"]}
+          </strong>
         </Typography>
         <Typography
           sx={{
