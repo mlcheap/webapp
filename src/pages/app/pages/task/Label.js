@@ -37,6 +37,12 @@ const Labels = ({
     handleChange(index);
   };
   const getLabel = (predicted_label) => {
+    let alters = predicted_label["alternates"];
+
+    if (typeof alters === "string" || alters instanceof String) {
+      alters = alters ? alters.slice(1, -1).trim().split(",") : [];
+    }
+
     return (
       <Box>
         <Typography style={{ whiteSpace: "normal" }}>
@@ -55,9 +61,7 @@ const Labels = ({
           }}
           style={{ whiteSpace: "normal" }}
         >
-          {predicted_label["alternates"]
-            ? predicted_label["alternates"].join("/")
-            : ""}
+          {alters ? alters.join("/") : ""}
         </Typography>
       </Box>
     );
