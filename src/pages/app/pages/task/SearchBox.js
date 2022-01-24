@@ -37,19 +37,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
-    // padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    // transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "32ch",
-    },
   },
 }));
 
 export default function SearchAppBar({ onChange, options, addClass }) {
-  let [autocomplete, setAutocomplete] = useState(false);
+  // let [autocomplete, setAutocomplete] = useState(false);
   const get_also_alternatives = (options) => {
     let all_options = [];
     for (let i = 0; i < options.length; i++) {
@@ -76,19 +70,12 @@ export default function SearchAppBar({ onChange, options, addClass }) {
     return all_options;
   };
   const onInputChange = (event) => {
-    // if (event.target.value.length > 2) {
     onChange(event.target.value);
-
-    //   setAutocomplete(true);
-    // } else {
-    //   setAutocomplete(false);
-    // }
   };
   const onClickItem = (value) => {
     if (value && "_id" in value) {
-      console.log("value", value._id.split("_"));
       const _id = value._id.split("_")[0];
-      addClass(_id);
+      addClass(value.name, _id);
     }
   };
   return (
@@ -101,10 +88,9 @@ export default function SearchAppBar({ onChange, options, addClass }) {
             </SearchIconWrapper>
 
             <Autocomplete
+              sx={{ width: "100%" }}
               freeSolo
               id="free-solo-2-demo"
-              // disableClearable
-              // open={autocomplete}
               options={get_also_alternatives(options)}
               filterOptions={(options, state) => options}
               onInputChange={onInputChange}
@@ -119,6 +105,7 @@ export default function SearchAppBar({ onChange, options, addClass }) {
               }}
               renderInput={(params) => (
                 <StyledInputBase
+                  style={{ width: "100%" }}
                   ref={params.InputProps.ref}
                   placeholder="Search…"
                   inputProps={{

@@ -11,11 +11,11 @@ const JobTooltip = styled(({ className, ...props }) => (
   />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.white,
-    color: "rgba(0, 0, 0, 0.87)",
+    // backgroundColor: theme.palette.common.white,
+    // color: "rgba(0, 0, 0, 0.87)",
     maxWidth: 500,
     boxShadow: theme.shadows[1],
-    fontSize: 11,
+    fontSize: 13,
   },
 }));
 export { JobTooltip };

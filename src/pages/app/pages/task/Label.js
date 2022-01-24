@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Done";
 import InfoIcon from "@mui/icons-material/Info";
 
-import RemoveIcon from "@mui/icons-material/Remove";
 import Divider from "@mui/material/Divider";
 
 import { JobTooltip } from "./JobToolTip";
@@ -29,20 +28,35 @@ const Labels = ({
       [index]: !checked[index],
     }));
   };
-  // const handleMouseOver = (index) => (event) => {
-  //   setSelectItem(index);
-  //   setOpen(true);
-  // };
   const handleDelete = (index) => (event) => {
     setSelectItem(index);
     handleChange(index);
   };
-  // let [open, setOpen] = useState(false);
   const click_label = (index) => (e) => {
-    // console.log("clicked", index);
-
     setSelectItem(index);
     handleChange(index);
+  };
+  const getLabel = (predicted_label) => {
+    return (
+      <Box>
+        <Typography style={{ whiteSpace: "normal" }}>
+          <strong>{predicted_label["name"]}</strong>
+        </Typography>
+        <Typography
+          sx={{
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2,
+          }}
+          style={{ whiteSpace: "normal" }}
+        >
+          {predicted_label["alternates"]
+            ? predicted_label["alternates"].join("/")
+            : ""}
+        </Typography>
+      </Box>
+    );
   };
   const getDescription = (preferClass) => {
     if (preferClass && preferClass["metadata"]) {
@@ -55,29 +69,15 @@ const Labels = ({
     <Box>
       {predicted_labels.map((predicted_label, index) =>
         predicted_label && "name" in predicted_label ? (
-          <Box>
+          <Box key={index}>
             {checked[index] ? (
               <Chip
-                icon={
-                  <InfoIcon fontSize="small" />
-                  //   <JobTooltip
-                  //   title={getDescription(predicted_labels[index])}
-                  //   key={index}
-                  //   onOpen={onDescription(index)}
-                  // >
-
-                  // </JobTooltip>
-                }
+                icon={<InfoIcon fontSize="small" />}
                 sx={{ margin: "5px" }}
-                label={
-                  <Typography style={{ whiteSpace: "normal" }}>
-                    {predicted_label["name"]}
-                  </Typography>
-                }
                 style={{ height: "100%" }}
                 variant="outlined"
                 deleteIcon={<AddIcon />}
-                // deleteIcon={<RemoveIcon />}
+                label={getLabel(predicted_label)}
                 onClick={click_label(index)}
                 color="success"
                 onDelete={handleDelete(index)}
@@ -95,11 +95,7 @@ const Labels = ({
                 }
                 sx={{ margin: "5px" }}
                 style={{ height: "100%" }}
-                label={
-                  <Typography style={{ whiteSpace: "normal" }}>
-                    {predicted_label["name"]}
-                  </Typography>
-                }
+                label={getLabel(predicted_label)}
                 variant="outlined"
                 // onDelete={handleDelete(index)}
                 onClick={click_label(index)}
