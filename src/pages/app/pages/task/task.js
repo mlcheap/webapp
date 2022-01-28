@@ -133,7 +133,7 @@ const TaskPage = () => {
         description: search,
         project_id: project_id,
         task_id: task["task_id"],
-        excluds: preferedClasses.map((item) => item._id),
+        exclude_indices: preferedClasses.map((item) => item._id),
       }).then((res) => {
         let ops = res["data"]["labels"].map((item) =>
           findClassByIndex(allClasses, item.index)
