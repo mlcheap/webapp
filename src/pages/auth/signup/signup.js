@@ -28,13 +28,13 @@ const genders = [
 export default function SignUp({ setUser }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [gender, setGender] = useState();
+  const [gender, setGender] = useState("male");
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  const handleGenderChange = (event) => {
-    console.log(event.target.value);
-    setGender(event.target.value);
-  };
+  // const handleGenderChange = (event) => {
+  //   console.log(event.target.value);
+  //   setGender(event.target.value);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,10 +56,10 @@ export default function SignUp({ setUser }) {
       setPasswordError("password is not strong");
     } else {
       signupUser({
-        email: data.get("email"),
+        email: data.get("email").toLowerCase(),
         password: data.get("password"),
         name: data.get("fullName"),
-        gender: data.get("gender"),
+        gender: "male",
       })
         .then((response) => {
           setUser(Object.assign(response.data, response.meta));
@@ -95,7 +95,7 @@ export default function SignUp({ setUser }) {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   autoComplete="given-name"
                   name="fullName"
@@ -106,7 +106,7 @@ export default function SignUp({ setUser }) {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -125,7 +125,7 @@ export default function SignUp({ setUser }) {
                     </MenuItem>
                   ))}
                 </TextField>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required

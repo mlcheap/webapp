@@ -25,7 +25,7 @@ export default function LoginPage({ setUser }) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     loginUser({
-      email: data.get("email"),
+      email: data.get("email").toLowerCase(),
       password: data.get("password"),
     })
       .then((response) => {

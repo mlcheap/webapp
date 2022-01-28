@@ -42,7 +42,7 @@ export default function SelectedListItem() {
           <ListItemText primary="projects" />
         </ListItemButton>
 
-        <ListItemButton
+        {/* <ListItemButton
           selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}
         >
@@ -50,7 +50,7 @@ export default function SelectedListItem() {
             <Assessment />
           </ListItemIcon>
           <ListItemText primary="reports" />
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton
           selected={selectedIndex === 2}
           onClick={(event) => handleListItemClick(event, 2)}
