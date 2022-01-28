@@ -12,6 +12,7 @@ import { userInfo } from "./../../../../services/userInfo";
 // import CircularProgress from "@mui/material/CircularProgress";
 import StatBar from "./StatBoard";
 import {
+  getProjectApi,
   getAllClassesApi,
   aiApi,
   classApi,
@@ -26,7 +27,7 @@ const TaskPage = () => {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [openSnackBar, setOpenSnackBar] = useState(false);
-
+  let [_project, setProject] = useState({ metadate: { lang: "en" } });
   let [searchParams, setSearchParams] = useSearchParams();
   let [checked, setChecked] = useState({});
   let [options, setOptions] = useState([]);
@@ -57,7 +58,12 @@ const TaskPage = () => {
   useEffect(() => {
     let classes = null;
     let new_task = [];
+    getProjectApi(user, project_id).then((data) => {
+      setProject(data["data"]["project"]);
+      console.log(data["data"]["project"]);
+    });
     setLoading(true);
+
     if (!allClasses) {
       getAllClassesApi(user, project_id).then((data) => {
         classes = data["data"]["classes"];
@@ -204,46 +210,68 @@ const TaskPage = () => {
         <Grid item md={8} xs={12}>
           <Box sx={{ padding: "2px" }}>
             <Paper sx={{ minHeight: "calc( 100vh - 240px) ", padding: "20px" }}>
-              <Typography
-                variant="h4"
-                gutterBottom
-                textAlign={("justify", "left")}
-                component="div"
+              <div
+                dir={
+                  _project.metadata && _project.metadata.lang == "ar"
+                    ? "rtl"
+                    : "ltr"
+                }
               >
-                {!task ? "" : task["items"][0]["data"]["title"]}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                gutterBottom
-                textAlign={("justify", "left")}
-                component="div"
-              >
-                {!task ? "" : task["items"][0]["data"]["description"]}
-              </Typography>
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  textAlign={"justify"}
+                  component="div"
+                >
+                  {!task ? "" : task["items"][0]["data"]["title"]}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                  textAlign={"justify"}
+                  component="div"
+                >
+                  {!task ? "" : task["items"][0]["data"]["description"]}
+                </Typography>
+              </div>
             </Paper>
           </Box>
         </Grid>
         <Grid item md={4} xs={12}>
           <Box align="center" justify="center" alignItems="center">
+            {/* <div
+              dir={
+                _project.metadata && _project.metadata.lang == "ar"
+                  ? "rtl"
+                  : "ltr"
+              }
+            > */}
             <SearchBox
               onChange={onChangeSearch}
               options={options}
               addClass={addClass}
             />
+            {/* </div> */}
           </Box>
-
-          <Labels
-            predicted_labels={preferedClasses}
-            setSelectItem={setSelectItem}
-            selectItem={selectItem}
-            clickMore={onClickMore}
-            clickSubmit={onClickSubmit}
-            clickSkipped={onClickSkipped}
-            checked={checked}
-            setChecked={setChecked}
-            onDescription={onDescription}
-          />
+          <div
+            dir={
+              _project.metadata && _project.metadata.lang == "ar"
+                ? "rtl"
+                : "ltr"
+            }
+          >
+            <Labels
+              predicted_labels={preferedClasses}
+              setSelectItem={setSelectItem}
+              selectItem={selectItem}
+              clickMore={onClickMore}
+              clickSubmit={onClickSubmit}
+              clickSkipped={onClickSkipped}
+              checked={checked}
+              setChecked={setChecked}
+              onDescription={onDescription}
+            />
+          </div>
         </Grid>
       </Grid>
       <Snackbar
