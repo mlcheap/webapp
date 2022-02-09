@@ -24,9 +24,9 @@ export default function StatBar({
           {total_labeled}
         </Button>
       </Tooltip>
-      <Tooltip title="total tasks remain!">
+      {/* <Tooltip title="total tasks remain!">
         <Button endIcon={<PendingIcon />}>{total_remain}</Button>
-      </Tooltip>
+      </Tooltip> */}
     </ButtonGroup>
   );
 }
